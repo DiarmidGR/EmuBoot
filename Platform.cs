@@ -13,9 +13,9 @@ namespace GBASelector
     internal class Platform
     {
         readonly BitmapImage NoCover = new BitmapImage(new Uri("/images/no-cover.png", UriKind.RelativeOrAbsolute));
-        private string _PlatformName;
-        private string _FileExtension;
-        private string _EmuPath;
+        public string _PlatformName;
+        public string _FileExtension;
+        public string _EmuPath;
         public List<string> _FilePaths = new List<string>();
         private Grid _Grid;
 
@@ -39,21 +39,18 @@ namespace GBASelector
 
                     // Filter file names that end with ".gba" and add them to the list.
                     gbaFiles = fileNames.Where(fileName => fileName.EndsWith(_FileExtension)).Select(filePath => System.IO.Path.GetFileName(filePath)).ToList();
-                }
-                else
-                {
-                    System.Windows.MessageBox.Show("Directory does not exist.");
+                    _FilePaths = gbaFiles;
                 }
             }
             catch (Exception ex)
             {
                 System.Windows.MessageBox.Show($"Error: {ex.Message}");
             }
-            _FilePaths = gbaFiles;
         }
 
         public void CreateGrid(TabControl tabControl)
         {
+            ScanDirectory();
             // Create our TabItem for our TabControl
             TabItem tabItem = new TabItem();
             tabItem.Header = _PlatformName;
@@ -113,7 +110,7 @@ namespace GBASelector
                     // Add border to image
                     Border imageBorder = new Border
                     {
-                        Tag = _EmuPath + "\\" + _FilePaths[temp],
+                        Tag = Path.Combine(_EmuPath,  _FilePaths[temp]),
                         BorderBrush = Brushes.Transparent, // Set the border color
                         BorderThickness = new Thickness(2), // Set the border thickness
                         Margin = new Thickness(2) // Adjust margin as needed

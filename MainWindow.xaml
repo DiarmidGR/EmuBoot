@@ -14,7 +14,7 @@
                 BorderBrush="Transparent" Background="#222E50"
                 VerticalAlignment="Top" Click="btnClose_Click" MouseEnter="btnClose_MouseEnter" MouseLeave="btnClose_MouseLeave" Panel.ZIndex="10"/>
         <TabControl Name="tC">
-            <TabItem Header=" + Add Item">
+            <TabItem Header=" + Add Item" MouseDown="TabItem_MouseDown">
                 
             </TabItem>
         </TabControl>

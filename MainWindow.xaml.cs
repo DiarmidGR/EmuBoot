@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using Wpf.Ui.Controls;
+using Newtonsoft.Json;
 
 namespace GBASelector
 {
@@ -23,10 +24,10 @@ namespace GBASelector
     /// </summary>
     public partial class MainWindow : Window
     {
-        Platform nds = new Platform("NDS", ".nds", Properties.Settings.Default.NDSPath);
-        Platform gba = new Platform("GBA", ".gba", Properties.Settings.Default.GBAPath);
-        Platform snes = new Platform("SNES", ".smc", Properties.Settings.Default.SNESPath);
         List<Platform> listPlatforms = new List<Platform>();
+        //Platform nds = new Platform("NDS", ".nds", Properties.Settings.Default.NDSPath);
+        //Platform gba = new Platform("GBA", ".gba", Properties.Settings.Default.GBAPath);
+        //Platform snes = new Platform("SNES", ".smc", Properties.Settings.Default.SNESPath);
 
         public MainWindow()
         {
@@ -36,17 +37,28 @@ namespace GBASelector
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            listPlatforms.Add(snes);
-            listPlatforms.Add(gba);
-            listPlatforms.Add(nds);
-            //PopulateGrid(Properties.Settings.Default.GBAPath, GBAFiles, gridButtons);
-            //tabDS.PreviewMouseDown += TabDS_PreviewMouseDown;
-            //tabGBA.PreviewMouseDown += TabGBA_PreviewMouseDown;
+            DeSerializeObjects();
+            //listPlatforms.Add(nds);
+            //listPlatforms.Add(snes);
+            //listPlatforms.Add(gba);
             foreach (Platform platform in listPlatforms)
             {
                 platform.CreateGrid(tC);
             }
             tC.SelectedIndex = 0;
+        }
+
+        private void SerializeObjects()
+        {
+            string json = JsonConvert.SerializeObject(listPlatforms);
+
+            File.WriteAllText("Platforms.json", json);
+        }
+
+        private void DeSerializeObjects()
+        {
+            string json = File.ReadAllText("Platforms.json");
+            listPlatforms = JsonConvert.DeserializeObject<List<Platform>>(json);
         }
 
         // Event Handlers
@@ -57,6 +69,7 @@ namespace GBASelector
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
+            SerializeObjects();
             Close();
         }
 
@@ -70,6 +83,11 @@ namespace GBASelector
         {
             System.Windows.Controls.Button button = (System.Windows.Controls.Button)sender;
             button.Background = Brushes.Transparent;
+        }
+
+        private void TabItem_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
         }
     }
 }
