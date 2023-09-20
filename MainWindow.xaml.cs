@@ -89,5 +89,15 @@ namespace GBASelector
         {
 
         }
+
+        private void btnAddPlatform_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine(txtPlatform.Text);
+            Console.WriteLine(txtExtension.Text);
+            Console.WriteLine(txtEmu.Text);
+            Platform platform = new Platform(txtPlatform.Text, txtExtension.Text, txtEmu.Text);
+            platform.CreateGrid(tC);
+            listPlatforms.Insert(listPlatforms.Count-1, platform);
+        }
     }
 }

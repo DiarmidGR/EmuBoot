@@ -22,41 +22,5 @@ namespace GBASelector.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\\\Important Files\\\\Emulators\\\\mGBA-0.10.2-win64\\\\Roms")]
-        public string GBAPath {
-            get {
-                return ((string)(this["GBAPath"]));
-            }
-            set {
-                this["GBAPath"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\\\Important Files\\\\Emulators\\\\melonDS_0.9.5_win_x64\\\\Roms")]
-        public string NDSPath {
-            get {
-                return ((string)(this["NDSPath"]));
-            }
-            set {
-                this["NDSPath"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\\\Important Files\\\\Emulators\\\\snes9x-1.62.3-win32-x64\\\\Roms")]
-        public string SNESPath {
-            get {
-                return ((string)(this["SNESPath"]));
-            }
-            set {
-                this["SNESPath"] = value;
-            }
-        }
     }
 }

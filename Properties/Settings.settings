@@ -1,15 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="GBASelector.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
   <Profiles />
-  <Settings>
-    <Setting Name="GBAPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\\Important Files\\Emulators\\mGBA-0.10.2-win64\\Roms</Value>
-    </Setting>
-    <Setting Name="NDSPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\\Important Files\\Emulators\\melonDS_0.9.5_win_x64\\Roms</Value>
-    </Setting>
-    <Setting Name="SNESPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\\Important Files\\Emulators\\snes9x-1.62.3-win32-x64\\Roms</Value>
-    </Setting>
-  </Settings>
+  <Settings />
 </SettingsFile>
