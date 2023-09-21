@@ -43,6 +43,7 @@ namespace GBASelector
             {
                 foreach (Platform platform in listPlatforms)
                 {
+                    platform.ScanDirectory();
                     platform.CreateGrid(tC);
                 }
             }

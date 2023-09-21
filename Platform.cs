@@ -26,17 +26,17 @@ namespace GBASelector
             _FileExtension = fileExtension;
             _EmuPath = emuPath;
             _RomsPath = romsPath;
-            ScanDirectory(romsPath);
+            ScanDirectory();
         }
 
-        private void ScanDirectory(string romsPath)
+        public void ScanDirectory()
         {
             try
             {
-                if (!string.IsNullOrEmpty(romsPath) && Directory.Exists(romsPath))
+                if (!string.IsNullOrEmpty(_RomsPath) && Directory.Exists(_RomsPath))
                 {
                     // Get a list of file names in the specified directory.
-                    _FilePaths = Directory.GetFiles(romsPath, "*" + _FileExtension).ToList();
+                    _FilePaths = Directory.GetFiles(_RomsPath, "*" + _FileExtension).ToList();
                 }
             }
             catch (Exception ex)
