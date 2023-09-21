@@ -7,6 +7,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Media;
 using System.Windows;
 using System.Diagnostics;
+using GBASelector.Properties;
 
 namespace GBASelector
 {
@@ -19,6 +20,8 @@ namespace GBASelector
         public string _RomsPath;
         public List<string> _FilePaths = new List<string>();
         private Grid _Grid;
+
+        public event Action<Platform> PlatformDelete;
 
         public Platform(string platformName, string fileExtension, string emuPath, string romsPath)
         {
@@ -70,9 +73,30 @@ namespace GBASelector
             // Add event handlers to our tabItem
             tabItem.PreviewMouseLeftButtonDown += TabItem_PreviewMouseLeftButtonDown;
 
+            // Context menu
+            ContextMenu contextMenu = new ContextMenu();
+            MenuItem miEdit = new MenuItem
+            {
+                Header = "Edit"
+            };
+            contextMenu.Items.Add(miEdit);
+            MenuItem miDelete = new MenuItem
+            {
+                Header = "Delete"
+            };
+            miDelete.Click += MiDelete_Click;
+            contextMenu.Items.Add(miDelete);
+
+            tabItem.ContextMenu = contextMenu;
+
             // Append our final item to the page
             tabControl.Items.Insert(0,tabItem);
             PopulateGrid();
+        }
+
+        private void MiDelete_Click(object sender, RoutedEventArgs e)
+        {
+            PlatformDelete?.Invoke(this);
         }
 
         private void PopulateGrid()

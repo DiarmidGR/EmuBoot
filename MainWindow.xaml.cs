@@ -45,6 +45,7 @@ namespace GBASelector
                 {
                     platform.ScanDirectory();
                     platform.CreateGrid(tC);
+                    platform.PlatformDelete += DeletePlatform;
                 }
             }
             tC.SelectedIndex = 0;
@@ -67,6 +68,15 @@ namespace GBASelector
             catch(Exception ex)
             {
                 Console.WriteLine($"Error Deserializing Platforms.json: {ex.Message}");
+            }
+        }
+
+        private void DeletePlatform(Platform platform)
+        {
+            MessageBoxResult result = System.Windows.MessageBox.Show($"Delete platform {platform._PlatformName}?", "Confirmation", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+            {
+                listPlatforms.Remove(platform);
             }
         }
 
