@@ -16,30 +16,27 @@ namespace GBASelector
         public string _PlatformName;
         public string _FileExtension;
         public string _EmuPath;
+        public string _RomsPath;
         public List<string> _FilePaths = new List<string>();
         private Grid _Grid;
 
-        public Platform(string platformName, string fileExtension, string emuPath)
+        public Platform(string platformName, string fileExtension, string emuPath, string romsPath)
         {
             _PlatformName = platformName;
             _FileExtension = fileExtension;
             _EmuPath = emuPath;
-            ScanDirectory();
+            _RomsPath = romsPath;
+            ScanDirectory(romsPath);
         }
 
-        private void ScanDirectory()
+        private void ScanDirectory(string romsPath)
         {
-            List<string> gbaFiles = new List<string>();
             try
             {
-                if (!string.IsNullOrEmpty(_EmuPath) && Directory.Exists(_EmuPath))
+                if (!string.IsNullOrEmpty(romsPath) && Directory.Exists(romsPath))
                 {
                     // Get a list of file names in the specified directory.
-                    string[] fileNames = Directory.GetFiles(_EmuPath);
-
-                    // Filter file names that end with ".gba" and add them to the list.
-                    gbaFiles = fileNames.Where(fileName => fileName.EndsWith(_FileExtension)).Select(filePath => System.IO.Path.GetFileName(filePath)).ToList();
-                    _FilePaths = gbaFiles;
+                    _FilePaths = Directory.GetFiles(romsPath, "*" + _FileExtension).ToList();
                 }
             }
             catch (Exception ex)
@@ -50,7 +47,6 @@ namespace GBASelector
 
         public void CreateGrid(TabControl tabControl)
         {
-            ScanDirectory();
             // Create our TabItem for our TabControl
             TabItem tabItem = new TabItem();
             tabItem.Header = _PlatformName;
@@ -97,7 +93,8 @@ namespace GBASelector
                         Height = 256,
                         Stretch = Stretch.Fill
                     };
-                    string coverPath = Path.Combine(_EmuPath, "Covers", Path.ChangeExtension(_FilePaths[temp], ".png"));
+                    string coverPath = _RomsPath + "\\Covers\\" + Path.ChangeExtension(Path.GetFileName(_FilePaths[temp]), ".png").ToString();
+                    Console.WriteLine(coverPath);
                     if (File.Exists(coverPath))
                     {
                         BitmapImage bitmap = new BitmapImage(new Uri(coverPath, UriKind.RelativeOrAbsolute));

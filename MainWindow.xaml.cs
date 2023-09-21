@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using Wpf.Ui.Controls;
 using Newtonsoft.Json;
+using Microsoft.Win32;
 
 namespace GBASelector
 {
@@ -25,9 +26,8 @@ namespace GBASelector
     public partial class MainWindow : Window
     {
         List<Platform> listPlatforms = new List<Platform>();
-        //Platform nds = new Platform("NDS", ".nds", Properties.Settings.Default.NDSPath);
-        //Platform gba = new Platform("GBA", ".gba", Properties.Settings.Default.GBAPath);
-        //Platform snes = new Platform("SNES", ".smc", Properties.Settings.Default.SNESPath);
+        string _emuPath;
+        string _romsPath;
 
         public MainWindow()
         {
@@ -38,12 +38,13 @@ namespace GBASelector
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             DeSerializeObjects();
-            //listPlatforms.Add(nds);
-            //listPlatforms.Add(snes);
-            //listPlatforms.Add(gba);
-            foreach (Platform platform in listPlatforms)
+            
+            if (listPlatforms != null && listPlatforms.Count > 0)
             {
-                platform.CreateGrid(tC);
+                foreach (Platform platform in listPlatforms)
+                {
+                    platform.CreateGrid(tC);
+                }
             }
             tC.SelectedIndex = 0;
         }
@@ -57,8 +58,15 @@ namespace GBASelector
 
         private void DeSerializeObjects()
         {
-            string json = File.ReadAllText("Platforms.json");
-            listPlatforms = JsonConvert.DeserializeObject<List<Platform>>(json);
+            try
+            {
+                string json = File.ReadAllText("Platforms.json");
+                listPlatforms = JsonConvert.DeserializeObject<List<Platform>>(json);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Error Deserializing Platforms.json: {ex.Message}");
+            }
         }
 
         // Event Handlers
@@ -85,19 +93,41 @@ namespace GBASelector
             button.Background = Brushes.Transparent;
         }
 
-        private void TabItem_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-
-        }
-
         private void btnAddPlatform_Click(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine(txtPlatform.Text);
-            Console.WriteLine(txtExtension.Text);
-            Console.WriteLine(txtEmu.Text);
-            Platform platform = new Platform(txtPlatform.Text, txtExtension.Text, txtEmu.Text);
-            platform.CreateGrid(tC);
-            listPlatforms.Insert(listPlatforms.Count-1, platform);
+            if (_emuPath != null && _emuPath.Length > 0 && _romsPath != null && _emuPath.Length > 0)
+            {
+                Platform platform = new Platform(txtPlatform.Text, txtExtension.Text, _emuPath, _romsPath);
+                platform.CreateGrid(tC);
+                if (listPlatforms==null)
+                {
+                    listPlatforms = new List<Platform>();
+                }
+                listPlatforms.Insert(listPlatforms.Count, platform);
+            }
+        }
+
+        private void btnBrowseEmu_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog fileDialog = new OpenFileDialog();
+            fileDialog.Title = "Select an Executable File";
+            fileDialog.Filter = "Executable Files (*.exe)|*.exe";
+            if (fileDialog.ShowDialog() == true)
+            {
+                _emuPath = fileDialog.FileName;
+                lblEmu.Content += $" {_emuPath}";
+            }
+        }
+
+        private void btnBrowseRoms_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Forms.FolderBrowserDialog folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
+            folderBrowserDialog.SelectedPath = "C:\\";
+            if(folderBrowserDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                _romsPath = folderBrowserDialog.SelectedPath;
+                lblRoms.Content += $" {_romsPath}";
+            }
         }
     }
 }
