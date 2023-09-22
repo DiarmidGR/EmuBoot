@@ -14,7 +14,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using Wpf.Ui.Controls;
 using Newtonsoft.Json;
 using Microsoft.Win32;
 
@@ -39,6 +38,12 @@ namespace GBASelector
         {
             DeSerializeObjects();
             
+            GeneratePlatforms();
+            tC.SelectedIndex = 0;
+        }
+
+        private void GeneratePlatforms()
+        {
             if (listPlatforms != null && listPlatforms.Count > 0)
             {
                 foreach (Platform platform in listPlatforms)
@@ -46,11 +51,42 @@ namespace GBASelector
                     platform.ScanDirectory();
                     platform.CreateGrid(tC);
                     platform.PlatformDelete += DeletePlatform;
+                    platform.PlatformEdit += OpenEditPlatform;
                 }
             }
-            tC.SelectedIndex = 0;
         }
 
+        private void OpenEditPlatform(Platform platform)
+        {
+            tC.SelectedIndex = listPlatforms.IndexOf(platform);
+            EditPlatform editPlatform = new EditPlatform(platform);
+            if (editPlatform.ShowDialog() == true)
+            {
+                int index = listPlatforms.IndexOf(platform);
+                listPlatforms.Remove(platform);
+                tC.Items.RemoveAt(index);
+                Platform editedPlatform = new Platform(editPlatform.Platform._PlatformName,
+                    editPlatform.Platform._FileExtension, editPlatform.Platform._EmuPath,
+                    editPlatform.Platform._RomsPath);
+                listPlatforms.Insert(listPlatforms.Count, editedPlatform);
+                GeneratePlatforms();
+                tC.SelectedIndex = listPlatforms.IndexOf(editedPlatform);
+            }
+        }
+
+        private void DeletePlatform(Platform platform)
+        {
+            MessageBoxResult result = System.Windows.MessageBox.Show($"Delete platform {platform._PlatformName}?", "Confirmation", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+            {
+                //remove the item from the TabControl, index of TabItem would be equal to index of platform
+                int index = listPlatforms.IndexOf(platform);
+                listPlatforms.RemoveAt(index);
+                tC.Items.RemoveAt(index);
+            }
+        }
+
+        // Loading and unloading Platforms.json data.
         private void SerializeObjects()
         {
             string json = JsonConvert.SerializeObject(listPlatforms);
@@ -71,14 +107,6 @@ namespace GBASelector
             }
         }
 
-        private void DeletePlatform(Platform platform)
-        {
-            MessageBoxResult result = System.Windows.MessageBox.Show($"Delete platform {platform._PlatformName}?", "Confirmation", MessageBoxButton.YesNo);
-            if (result == MessageBoxResult.Yes)
-            {
-                listPlatforms.Remove(platform);
-            }
-        }
 
         // Event Handlers
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -108,13 +136,16 @@ namespace GBASelector
         {
             if (_emuPath != null && _emuPath.Length > 0 && _romsPath != null && _emuPath.Length > 0)
             {
-                Platform platform = new Platform(txtPlatform.Text, txtExtension.Text, _emuPath, _romsPath);
-                platform.CreateGrid(tC);
-                if (listPlatforms==null)
-                {
+                if (listPlatforms == null)
                     listPlatforms = new List<Platform>();
+                foreach(Platform pf in listPlatforms)
+                {
+                    tC.Items.RemoveAt(listPlatforms.IndexOf(pf));
                 }
+                Platform platform = new Platform(txtPlatform.Text, txtExtension.Text, _emuPath, _romsPath);
                 listPlatforms.Insert(listPlatforms.Count, platform);
+                GeneratePlatforms();
+                tC.SelectedIndex = listPlatforms.IndexOf(platform);
             }
         }
 
@@ -139,6 +170,11 @@ namespace GBASelector
                 _romsPath = folderBrowserDialog.SelectedPath;
                 lblRoms.Content += $" {_romsPath}";
             }
+        }
+
+        private void btnEditPlatform_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

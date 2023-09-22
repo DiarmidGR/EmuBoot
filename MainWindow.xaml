@@ -16,7 +16,7 @@
                 VerticalAlignment="Top" Click="btnClose_Click" MouseEnter="btnClose_MouseEnter" MouseLeave="btnClose_MouseLeave" Panel.ZIndex="10"/>
         <TabControl x:Name="tC" Height="820" VerticalAlignment="Top">
             <TabItem Header=" + Add Item">
-                <Grid Width="1040" HorizontalAlignment="Left">
+                <Grid x:Name="gridAddEdit" Width="1040" HorizontalAlignment="Left">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>

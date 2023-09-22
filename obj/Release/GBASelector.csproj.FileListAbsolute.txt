@@ -1,8 +1,3 @@
-C:\Users\diarm\OneDrive\Desktop\Coding Projects\GBASelector\GBASelector\obj\Release\GBASelector.csproj.AssemblyReference.cache
-C:\Users\diarm\OneDrive\Desktop\Coding Projects\GBASelector\GBASelector\obj\Release\GBASelector.csproj.SuggestedBindingRedirects.cache
-C:\Users\diarm\OneDrive\Desktop\Coding Projects\GBASelector\GBASelector\obj\Release\App.g.cs
-C:\Users\diarm\OneDrive\Desktop\Coding Projects\GBASelector\GBASelector\obj\Release\GBASelector_MarkupCompile.cache
-C:\Users\diarm\OneDrive\Desktop\Coding Projects\GBASelector\GBASelector\obj\Release\GBASelector_MarkupCompile.lref
 C:\Users\diarm\OneDrive\Desktop\Coding Projects\GBASelector\GBASelector\bin\Release\GBASelector.exe.config
 C:\Users\diarm\OneDrive\Desktop\Coding Projects\GBASelector\GBASelector\bin\Release\GBASelector.exe
 C:\Users\diarm\OneDrive\Desktop\Coding Projects\GBASelector\GBASelector\bin\Release\GBASelector.pdb
@@ -30,7 +25,12 @@ C:\Users\diarm\OneDrive\Desktop\Coding Projects\GBASelector\GBASelector\bin\Rele
 C:\Users\diarm\OneDrive\Desktop\Coding Projects\GBASelector\GBASelector\bin\Release\System.Threading.Tasks.Extensions.xml
 C:\Users\diarm\OneDrive\Desktop\Coding Projects\GBASelector\GBASelector\bin\Release\System.ValueTuple.xml
 C:\Users\diarm\OneDrive\Desktop\Coding Projects\GBASelector\GBASelector\bin\Release\Wpf.Ui.xml
+C:\Users\diarm\OneDrive\Desktop\Coding Projects\GBASelector\GBASelector\obj\Release\GBASelector.csproj.AssemblyReference.cache
+C:\Users\diarm\OneDrive\Desktop\Coding Projects\GBASelector\GBASelector\obj\Release\GBASelector.csproj.SuggestedBindingRedirects.cache
 C:\Users\diarm\OneDrive\Desktop\Coding Projects\GBASelector\GBASelector\obj\Release\MainWindow.g.cs
+C:\Users\diarm\OneDrive\Desktop\Coding Projects\GBASelector\GBASelector\obj\Release\App.g.cs
+C:\Users\diarm\OneDrive\Desktop\Coding Projects\GBASelector\GBASelector\obj\Release\GBASelector_MarkupCompile.cache
+C:\Users\diarm\OneDrive\Desktop\Coding Projects\GBASelector\GBASelector\obj\Release\GBASelector_MarkupCompile.lref
 C:\Users\diarm\OneDrive\Desktop\Coding Projects\GBASelector\GBASelector\obj\Release\App.baml
 C:\Users\diarm\OneDrive\Desktop\Coding Projects\GBASelector\GBASelector\obj\Release\MainWindow.baml
 C:\Users\diarm\OneDrive\Desktop\Coding Projects\GBASelector\GBASelector\obj\Release\GBASelector.g.resources
@@ -40,3 +40,5 @@ C:\Users\diarm\OneDrive\Desktop\Coding Projects\GBASelector\GBASelector\obj\Rele
 C:\Users\diarm\OneDrive\Desktop\Coding Projects\GBASelector\GBASelector\obj\Release\GBASelector.csproj.CopyComplete
 C:\Users\diarm\OneDrive\Desktop\Coding Projects\GBASelector\GBASelector\obj\Release\GBASelector.exe
 C:\Users\diarm\OneDrive\Desktop\Coding Projects\GBASelector\GBASelector\obj\Release\GBASelector.pdb
+C:\Users\diarm\OneDrive\Desktop\Coding Projects\GBASelector\GBASelector\obj\Release\EditPlatform.g.cs
+C:\Users\diarm\OneDrive\Desktop\Coding Projects\GBASelector\GBASelector\obj\Release\EditPlatform.baml
