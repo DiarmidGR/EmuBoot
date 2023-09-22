@@ -21,6 +21,10 @@ namespace GBASelector
         public List<string> _FilePaths = new List<string>();
         private Grid _Grid;
 
+        // Values to handle default game card dimensions.
+        readonly int iRowHeight = 256;
+        readonly int iColumnWidth = 256;
+
         public event Action<Platform> PlatformDelete;
 
         public Platform(string platformName, string fileExtension, string emuPath, string romsPath)
@@ -56,17 +60,19 @@ namespace GBASelector
 
             // Create our Grid
             _Grid = new Grid();
-            tabItem.Content = _Grid;
+            ScrollViewer scrollViewer = new ScrollViewer();
+            scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
+            scrollViewer.Content = _Grid;
+            tabItem.Content = scrollViewer;
             for (int i = 0; i < 3; i++)
             {
                 RowDefinition rowDefinition = new RowDefinition();
-                rowDefinition.Height = new System.Windows.GridLength(260);
                 _Grid.RowDefinitions.Add(rowDefinition);
             }
             for (int i = 0; i < 4; i++)
             {
                 ColumnDefinition columnDefinition = new ColumnDefinition();
-                columnDefinition.Width = new System.Windows.GridLength(260);
+                columnDefinition.Width = new GridLength(iColumnWidth + 4);
                 _Grid.ColumnDefinitions.Add(columnDefinition);
             }
 
@@ -113,9 +119,8 @@ namespace GBASelector
 
                     Image cover = new Image
                     {
-                        Width = 256,
-                        Height = 256,
-                        Stretch = Stretch.Fill
+                        Width = iColumnWidth,
+                        Stretch = Stretch.Uniform
                     };
                     string coverPath = _RomsPath + "\\Covers\\" + Path.ChangeExtension(Path.GetFileName(_FilePaths[temp]), ".png").ToString();
                     Console.WriteLine(coverPath);
