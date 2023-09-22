@@ -77,7 +77,7 @@ namespace GBASelector
                 Content = _Grid
             };
             tabItem.Content = scrollViewer;
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < _FilePaths.Count / 4 + 1; i++)
             {
                 RowDefinition rowDefinition = new RowDefinition
                 {

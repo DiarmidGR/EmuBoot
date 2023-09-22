@@ -28,6 +28,7 @@ namespace GBASelector
             txtPlatformName.Text = platform._PlatformName;
             lblEmu.Content = $"({Platform._EmuPath})";
             lblRoms.Content = $"({Platform._RomsPath})";
+            this.Title = $"Edit {Platform._PlatformName}";
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)

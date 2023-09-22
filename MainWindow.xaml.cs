@@ -51,12 +51,20 @@ namespace GBASelector
                     platform.ScanDirectory();
                     platform.CreateGrid(tC);
                     platform.PlatformDelete += DeletePlatform;
-                    platform.PlatformEdit += OpenEditPlatform;
+                    platform.PlatformEdit += EditPlatform;
                 }
             }
         }
 
-        private void OpenEditPlatform(Platform platform)
+        private void GeneratePlatform(Platform platform)
+        {
+            platform.ScanDirectory();
+            platform.CreateGrid(tC);
+            platform.PlatformDelete += DeletePlatform;
+            platform.PlatformEdit += EditPlatform;
+        }
+
+        private void EditPlatform(Platform platform)
         {
             tC.SelectedIndex = listPlatforms.IndexOf(platform);
             EditPlatform editPlatform = new EditPlatform(platform);
@@ -68,10 +76,11 @@ namespace GBASelector
                 Platform editedPlatform = new Platform(editPlatform.Platform._PlatformName,
                     editPlatform.Platform._FileExtension, editPlatform.Platform._EmuPath,
                     editPlatform.Platform._RomsPath);
-                listPlatforms.Insert(listPlatforms.Count, editedPlatform);
-                GeneratePlatforms();
+                listPlatforms.Insert(index, editedPlatform);
+                GeneratePlatform(editedPlatform);
                 tC.SelectedIndex = listPlatforms.IndexOf(editedPlatform);
             }
+            SerializeObjects();
         }
 
         private void DeletePlatform(Platform platform)
@@ -84,6 +93,7 @@ namespace GBASelector
                 listPlatforms.RemoveAt(index);
                 tC.Items.RemoveAt(index);
             }
+            SerializeObjects();
         }
 
         // Loading and unloading Platforms.json data.
@@ -107,8 +117,19 @@ namespace GBASelector
             }
         }
 
-
         // Event Handlers
+        private void btnAddPlatform_Click(object sender, RoutedEventArgs e)
+        {
+            if (_emuPath != null && _emuPath.Length > 0 && _romsPath != null && _emuPath.Length > 0)
+            {
+                if (listPlatforms == null)
+                    listPlatforms = new List<Platform>();
+                Platform platform = new Platform(txtPlatform.Text, txtExtension.Text, _emuPath, _romsPath);
+                listPlatforms.Insert(listPlatforms.Count, platform);
+                GeneratePlatform(platform);
+                tC.SelectedIndex = listPlatforms.IndexOf(platform);
+            }
+        }
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
@@ -132,23 +153,6 @@ namespace GBASelector
             button.Background = Brushes.Transparent;
         }
 
-        private void btnAddPlatform_Click(object sender, RoutedEventArgs e)
-        {
-            if (_emuPath != null && _emuPath.Length > 0 && _romsPath != null && _emuPath.Length > 0)
-            {
-                if (listPlatforms == null)
-                    listPlatforms = new List<Platform>();
-                foreach(Platform pf in listPlatforms)
-                {
-                    tC.Items.RemoveAt(listPlatforms.IndexOf(pf));
-                }
-                Platform platform = new Platform(txtPlatform.Text, txtExtension.Text, _emuPath, _romsPath);
-                listPlatforms.Insert(listPlatforms.Count, platform);
-                GeneratePlatforms();
-                tC.SelectedIndex = listPlatforms.IndexOf(platform);
-            }
-        }
-
         private void btnBrowseEmu_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
@@ -170,11 +174,6 @@ namespace GBASelector
                 _romsPath = folderBrowserDialog.SelectedPath;
                 lblRoms.Content += $" {_romsPath}";
             }
-        }
-
-        private void btnEditPlatform_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }
