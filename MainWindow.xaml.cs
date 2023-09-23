@@ -46,20 +46,22 @@ namespace GBASelector
         {
             if (listPlatforms != null && listPlatforms.Count > 0)
             {
+                int index = 0;
                 foreach (Platform platform in listPlatforms)
                 {
                     platform.ScanDirectory();
-                    platform.CreateGrid(tC);
+                    platform.CreateGrid(tC, index);
                     platform.PlatformDelete += DeletePlatform;
                     platform.PlatformEdit += EditPlatform;
+                    index++;
                 }
             }
         }
 
-        private void GeneratePlatform(Platform platform)
+        private void GeneratePlatform(Platform platform, int index)
         {
             platform.ScanDirectory();
-            platform.CreateGrid(tC);
+            platform.CreateGrid(tC, index);
             platform.PlatformDelete += DeletePlatform;
             platform.PlatformEdit += EditPlatform;
         }
@@ -77,7 +79,7 @@ namespace GBASelector
                     editPlatform.Platform._FileExtension, editPlatform.Platform._EmuPath,
                     editPlatform.Platform._RomsPath);
                 listPlatforms.Insert(index, editedPlatform);
-                GeneratePlatform(editedPlatform);
+                GeneratePlatform(editedPlatform, index);
                 tC.SelectedIndex = listPlatforms.IndexOf(editedPlatform);
             }
             SerializeObjects();
@@ -126,8 +128,9 @@ namespace GBASelector
                     listPlatforms = new List<Platform>();
                 Platform platform = new Platform(txtPlatform.Text, txtExtension.Text, _emuPath, _romsPath);
                 listPlatforms.Insert(listPlatforms.Count, platform);
-                GeneratePlatform(platform);
+                GeneratePlatform(platform, listPlatforms.Count-1);
                 tC.SelectedIndex = listPlatforms.IndexOf(platform);
+                SerializeObjects();
             }
         }
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

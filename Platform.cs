@@ -61,7 +61,7 @@ namespace GBASelector
         /// Method to create the grid that we will populate with all of our clickable rom shortcuts
         /// </summary>
         /// <param name="tabControl"></param>
-        public void CreateGrid(TabControl tabControl)
+        public void CreateGrid(TabControl tabControl, int index)
         {
             // Create our TabItem for our TabControl
             TabItem tabItem = new TabItem
@@ -118,7 +118,7 @@ namespace GBASelector
             tabItem.ContextMenu = contextMenu;
 
             // Append our final item to the page
-            tabControl.Items.Insert(tabControl.Items.Count-1,tabItem);
+            tabControl.Items.Insert(index,tabItem);
             PopulateGrid();
         }
 
