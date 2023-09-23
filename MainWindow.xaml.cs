@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using Newtonsoft.Json;
 using Microsoft.Win32;
+using EmuBoot.Properties;
 
 namespace EmuBoot
 {
@@ -40,6 +41,12 @@ namespace EmuBoot
             
             GeneratePlatforms();
             tC.SelectedIndex = 0;
+        }
+
+        private void OpenSettings()
+        {
+            EditSettings firstStartup = new EditSettings(Settings.Default.Properties);
+            firstStartup.ShowDialog();
         }
 
         private void GeneratePlatforms()
@@ -180,6 +187,11 @@ namespace EmuBoot
                 _romsPath = folderBrowserDialog.SelectedPath;
                 lblRoms.Content += $" {_romsPath}";
             }
+        }
+
+        private void ButtonSettings_Click(object sender, RoutedEventArgs e)
+        {
+            OpenSettings();
         }
     }
 }

@@ -1,20 +1,20 @@
-﻿GBASelector
+﻿EmuBoot
 
 
 winexe
 C#
 .cs
 C:\Users\diarm\OneDrive\Desktop\Coding Projects\EmuBoot\EmuBoot\obj\Debug\
-GBASelector
+EmuBoot
 none
 false
 DEBUG;TRACE
 C:\Users\diarm\OneDrive\Desktop\Coding Projects\EmuBoot\EmuBoot\App.xaml
 31177083357
 
-92138370872
+8-74507806
 27-835086921
 EditPlatform.xaml;EditSettings.xaml;MainWindow.xaml;
 
-True
+False
 

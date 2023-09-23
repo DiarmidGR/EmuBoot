@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{9822C176-F201-43B8-BC33-CEA063AF2E79}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>GBASelector</RootNamespace>
-    <AssemblyName>GBASelector</AssemblyName>
+    <RootNamespace>EmuBoot</RootNamespace>
+    <AssemblyName>EmuBoot</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -97,6 +97,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="EditSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -107,6 +111,9 @@
     </Compile>
     <Compile Include="EditPlatform.xaml.cs">
       <DependentUpon>EditPlatform.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EditSettings.xaml.cs">
+      <DependentUpon>EditSettings.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:EmuBoot"
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml" x:Class="EmuBoot.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="860" Width="1054" WindowStyle="None" MouseLeftButtonDown="Window_MouseLeftButtonDown" ResizeMode="NoResize" Background="#222E50">
+        Title="EmuBoot" Height="860" Width="1054" WindowStyle="None" MouseLeftButtonDown="Window_MouseLeftButtonDown" ResizeMode="NoResize" Background="#222E50">
     <WindowChrome.WindowChrome>
         <WindowChrome GlassFrameThickness="0" CornerRadius="0" CaptionHeight="0"/>
     </WindowChrome.WindowChrome>
@@ -46,6 +46,7 @@
                 </Grid>
             </TabItem>
         </TabControl>
+        <Button x:Name="ButtonSettings" Content="Settings" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="4" Click="ButtonSettings_Click"/>
         <Label Content="© 2023 Diarmid Rendell" FontSize="20" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Row="4" Panel.ZIndex="10" Margin="4"></Label>
     </Grid>
 </Window>

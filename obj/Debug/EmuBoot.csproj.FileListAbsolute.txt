@@ -42,9 +42,6 @@ C:\Users\diarm\OneDrive\Desktop\GBASelector\GBASelector\obj\Debug\EmuBoot.csproj
 C:\Users\diarm\OneDrive\Desktop\GBASelector\GBASelector\obj\Debug\EmuBoot.csproj.CopyComplete
 C:\Users\diarm\OneDrive\Desktop\GBASelector\GBASelector\obj\Debug\GBASelector.exe
 C:\Users\diarm\OneDrive\Desktop\GBASelector\GBASelector\obj\Debug\GBASelector.pdb
-C:\Users\diarm\OneDrive\Desktop\Coding Projects\EmuBoot\EmuBoot\bin\Debug\GBASelector.exe.config
-C:\Users\diarm\OneDrive\Desktop\Coding Projects\EmuBoot\EmuBoot\bin\Debug\GBASelector.exe
-C:\Users\diarm\OneDrive\Desktop\Coding Projects\EmuBoot\EmuBoot\bin\Debug\GBASelector.pdb
 C:\Users\diarm\OneDrive\Desktop\Coding Projects\EmuBoot\EmuBoot\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\diarm\OneDrive\Desktop\Coding Projects\EmuBoot\EmuBoot\bin\Debug\Newtonsoft.Json.dll
 C:\Users\diarm\OneDrive\Desktop\Coding Projects\EmuBoot\EmuBoot\bin\Debug\System.Buffers.dll
@@ -74,15 +71,20 @@ C:\Users\diarm\OneDrive\Desktop\Coding Projects\EmuBoot\EmuBoot\obj\Debug\EmuBoo
 C:\Users\diarm\OneDrive\Desktop\Coding Projects\EmuBoot\EmuBoot\obj\Debug\EditPlatform.g.cs
 C:\Users\diarm\OneDrive\Desktop\Coding Projects\EmuBoot\EmuBoot\obj\Debug\MainWindow.g.cs
 C:\Users\diarm\OneDrive\Desktop\Coding Projects\EmuBoot\EmuBoot\obj\Debug\App.g.cs
-C:\Users\diarm\OneDrive\Desktop\Coding Projects\EmuBoot\EmuBoot\obj\Debug\GBASelector_MarkupCompile.cache
-C:\Users\diarm\OneDrive\Desktop\Coding Projects\EmuBoot\EmuBoot\obj\Debug\GBASelector_MarkupCompile.lref
 C:\Users\diarm\OneDrive\Desktop\Coding Projects\EmuBoot\EmuBoot\obj\Debug\App.baml
 C:\Users\diarm\OneDrive\Desktop\Coding Projects\EmuBoot\EmuBoot\obj\Debug\EditPlatform.baml
 C:\Users\diarm\OneDrive\Desktop\Coding Projects\EmuBoot\EmuBoot\obj\Debug\MainWindow.baml
-C:\Users\diarm\OneDrive\Desktop\Coding Projects\EmuBoot\EmuBoot\obj\Debug\GBASelector.g.resources
-C:\Users\diarm\OneDrive\Desktop\Coding Projects\EmuBoot\EmuBoot\obj\Debug\GBASelector.Properties.Resources.resources
 C:\Users\diarm\OneDrive\Desktop\Coding Projects\EmuBoot\EmuBoot\obj\Debug\EmuBoot.csproj.GenerateResource.cache
 C:\Users\diarm\OneDrive\Desktop\Coding Projects\EmuBoot\EmuBoot\obj\Debug\EmuBoot.csproj.CoreCompileInputs.cache
 C:\Users\diarm\OneDrive\Desktop\Coding Projects\EmuBoot\EmuBoot\obj\Debug\EmuBoot.csproj.CopyComplete
-C:\Users\diarm\OneDrive\Desktop\Coding Projects\EmuBoot\EmuBoot\obj\Debug\GBASelector.exe
-C:\Users\diarm\OneDrive\Desktop\Coding Projects\EmuBoot\EmuBoot\obj\Debug\GBASelector.pdb
+C:\Users\diarm\OneDrive\Desktop\Coding Projects\EmuBoot\EmuBoot\obj\Debug\EditSettings.g.cs
+C:\Users\diarm\OneDrive\Desktop\Coding Projects\EmuBoot\EmuBoot\obj\Debug\EmuBoot_MarkupCompile.cache
+C:\Users\diarm\OneDrive\Desktop\Coding Projects\EmuBoot\EmuBoot\obj\Debug\EmuBoot_MarkupCompile.lref
+C:\Users\diarm\OneDrive\Desktop\Coding Projects\EmuBoot\EmuBoot\bin\Debug\EmuBoot.exe.config
+C:\Users\diarm\OneDrive\Desktop\Coding Projects\EmuBoot\EmuBoot\bin\Debug\EmuBoot.exe
+C:\Users\diarm\OneDrive\Desktop\Coding Projects\EmuBoot\EmuBoot\bin\Debug\EmuBoot.pdb
+C:\Users\diarm\OneDrive\Desktop\Coding Projects\EmuBoot\EmuBoot\obj\Debug\EditSettings.baml
+C:\Users\diarm\OneDrive\Desktop\Coding Projects\EmuBoot\EmuBoot\obj\Debug\EmuBoot.g.resources
+C:\Users\diarm\OneDrive\Desktop\Coding Projects\EmuBoot\EmuBoot\obj\Debug\EmuBoot.Properties.Resources.resources
+C:\Users\diarm\OneDrive\Desktop\Coding Projects\EmuBoot\EmuBoot\obj\Debug\EmuBoot.exe
+C:\Users\diarm\OneDrive\Desktop\Coding Projects\EmuBoot\EmuBoot\obj\Debug\EmuBoot.pdb

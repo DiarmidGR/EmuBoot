@@ -22,5 +22,29 @@ namespace EmuBoot.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string EmulatorsDirectory {
+            get {
+                return ((string)(this["EmulatorsDirectory"]));
+            }
+            set {
+                this["EmulatorsDirectory"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string RomsDirectory {
+            get {
+                return ((string)(this["RomsDirectory"]));
+            }
+            set {
+                this["RomsDirectory"] = value;
+            }
+        }
     }
 }

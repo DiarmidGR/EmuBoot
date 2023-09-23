@@ -100,7 +100,7 @@ namespace EmuBoot {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/GBASelector;component/editplatform.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/EmuBoot;component/editplatform.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\EditPlatform.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
