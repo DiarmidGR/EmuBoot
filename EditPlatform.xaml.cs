@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Microsoft.Win32;
 
-namespace GBASelector
+namespace EmuBoot
 {
     /// <summary>
     /// Interaction logic for EditPlatform.xaml

@@ -17,7 +17,7 @@ using System.Windows.Navigation;
 using Newtonsoft.Json;
 using Microsoft.Win32;
 
-namespace GBASelector
+namespace EmuBoot
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -69,7 +69,10 @@ namespace GBASelector
         private void EditPlatform(Platform platform)
         {
             tC.SelectedIndex = listPlatforms.IndexOf(platform);
-            EditPlatform editPlatform = new EditPlatform(platform);
+            EditPlatform editPlatform = new EditPlatform(platform)
+            {
+                Owner = this
+            };
             if (editPlatform.ShowDialog() == true)
             {
                 int index = listPlatforms.IndexOf(platform);

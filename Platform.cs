@@ -7,9 +7,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Media;
 using System.Windows;
 using System.Diagnostics;
-using GBASelector.Properties;
+using EmuBoot.Properties;
 
-namespace GBASelector
+namespace EmuBoot
 {
     public class Platform
     {
