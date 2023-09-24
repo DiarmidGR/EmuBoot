@@ -16,7 +16,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using Newtonsoft.Json;
 using Microsoft.Win32;
+using GBASelector.Models;
 using EmuBoot.Properties;
+using GBASelector;
+using System.Security.Policy;
+using System.Configuration;
 
 namespace EmuBoot
 {
@@ -25,22 +29,27 @@ namespace EmuBoot
     /// </summary>
     public partial class MainWindow : Window
     {
+        //global variables for the Add Platform page
+        string _emulatorPath = Settings.Default.EmulatorsDirectory;
+        string _romsPath = Settings.Default.RomsDirectory;
+        string _coversPath = Settings.Default.CoversDirectory;
         List<Platform> listPlatforms = new List<Platform>();
-        string _emuPath;
-        string _romsPath;
-
         public MainWindow()
         {
             InitializeComponent();
+
+            // Open first time startup dialog for user to input a couple settings
             Loaded += MainWindow_Loaded;
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            // Misc. loading actions
+            lblEmu.Content = $"Path to emulator .exe file: '{Settings.Default.EmulatorsDirectory}'";
+            lblRoms.Content = $"Path to roms folder: '{Settings.Default.RomsDirectory}'";
+            lblCovers.Content = $"Path to covers folder: '{Settings.Default.CoversDirectory}'";
             DeSerializeObjects();
-            
-            GeneratePlatforms();
-            tC.SelectedIndex = 0;
+            ReLoadPlatforms();
         }
 
         private void OpenSettings()
@@ -49,63 +58,61 @@ namespace EmuBoot
             firstStartup.ShowDialog();
         }
 
-        private void GeneratePlatforms()
+        private void AddPlatformTab(Platform platform, int index)
         {
-            if (listPlatforms != null && listPlatforms.Count > 0)
+            platform.PlatformEdit += Platform_PlatformEdit;
+            platform.PlatformDelete += Platform_PlatformDelete;
+            tC.Items.Insert(index, platform.PlatformTab);
+            tC.SelectedIndex = index;
+        }
+
+        private void Platform_PlatformDelete(Platform obj)
+        {
+            MessageBoxResult result = System.Windows.MessageBox.Show($"Delete platform {obj.Name}?", "Confirmation", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
             {
-                int index = 0;
-                foreach (Platform platform in listPlatforms)
-                {
-                    platform.ScanDirectory();
-                    platform.CreateGrid(tC, index);
-                    platform.PlatformDelete += DeletePlatform;
-                    platform.PlatformEdit += EditPlatform;
-                    index++;
-                }
+                tC.Items.RemoveAt(listPlatforms.IndexOf(obj));
+                listPlatforms.Remove(obj);
+                SerializeObjects();
             }
         }
 
-        private void GeneratePlatform(Platform platform, int index)
+        private void Platform_PlatformEdit(Platform obj)
         {
-            platform.ScanDirectory();
-            platform.CreateGrid(tC, index);
-            platform.PlatformDelete += DeletePlatform;
-            platform.PlatformEdit += EditPlatform;
-        }
-
-        private void EditPlatform(Platform platform)
-        {
-            tC.SelectedIndex = listPlatforms.IndexOf(platform);
-            EditPlatform editPlatform = new EditPlatform(platform)
+            tC.SelectedIndex = listPlatforms.IndexOf(obj);
+            EditPlatform editPlatform = new EditPlatform(obj)
             {
                 Owner = this
             };
             if (editPlatform.ShowDialog() == true)
             {
-                int index = listPlatforms.IndexOf(platform);
-                listPlatforms.Remove(platform);
-                tC.Items.RemoveAt(index);
-                Platform editedPlatform = new Platform(editPlatform.Platform._PlatformName,
-                    editPlatform.Platform._FileExtension, editPlatform.Platform._EmuPath,
-                    editPlatform.Platform._RomsPath);
-                listPlatforms.Insert(index, editedPlatform);
-                GeneratePlatform(editedPlatform, index);
-                tC.SelectedIndex = listPlatforms.IndexOf(editedPlatform);
+                int temp = tC.SelectedIndex;
+                // Remove platforms old TabItem
+                tC.Items.RemoveAt(temp);
+
+                Platform editedPlatform = editPlatform.NewPlatform;
+                Platform platform = new Platform(editedPlatform.Name, editedPlatform.Extension, editedPlatform.EmuPath, editedPlatform.GamePaths, editedPlatform.CoverPaths);
+
+
+                // Insert new Platform where old Platform is in listPlatforms
+                listPlatforms.Insert(listPlatforms.IndexOf(obj), platform);
+
+                // Remove old Platform from listPlatforms
+                listPlatforms.Remove(obj);
+                AddPlatformTab(platform, temp);
+
+                SerializeObjects();
             }
-            SerializeObjects();
         }
 
-        private void DeletePlatform(Platform platform)
+        private void ReLoadPlatforms()
         {
-            MessageBoxResult result = System.Windows.MessageBox.Show($"Delete platform {platform._PlatformName}?", "Confirmation", MessageBoxButton.YesNo);
-            if (result == MessageBoxResult.Yes)
+            int index = 0;
+            foreach(Platform platform in listPlatforms)
             {
-                //remove the item from the TabControl, index of TabItem would be equal to index of platform
-                int index = listPlatforms.IndexOf(platform);
-                listPlatforms.RemoveAt(index);
-                tC.Items.RemoveAt(index);
+                AddPlatformTab(platform, index);
+                index++;
             }
-            SerializeObjects();
         }
 
         // Loading and unloading Platforms.json data.
@@ -121,9 +128,12 @@ namespace EmuBoot
             try
             {
                 string json = File.ReadAllText("Platforms.json");
-                listPlatforms = JsonConvert.DeserializeObject<List<Platform>>(json);
+                if(JsonConvert.DeserializeObject<List<Platform>>(json) != null)
+                {
+                    listPlatforms = JsonConvert.DeserializeObject<List<Platform>>(json);
+                }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine($"Error Deserializing Platforms.json: {ex.Message}");
             }
@@ -132,17 +142,53 @@ namespace EmuBoot
         // Event Handlers
         private void btnAddPlatform_Click(object sender, RoutedEventArgs e)
         {
-            if (_emuPath != null && _emuPath.Length > 0 && _romsPath != null && _emuPath.Length > 0)
+            if (_emulatorPath != null && _emulatorPath.Length > 0 && _romsPath != null && _romsPath.Length > 0 && _coversPath != null && _coversPath.Length > 0)
             {
-                if (listPlatforms == null)
-                    listPlatforms = new List<Platform>();
-                Platform platform = new Platform(txtPlatform.Text, txtExtension.Text, _emuPath, _romsPath);
-                listPlatforms.Insert(listPlatforms.Count, platform);
-                GeneratePlatform(platform, listPlatforms.Count-1);
-                tC.SelectedIndex = listPlatforms.IndexOf(platform);
+                Platform platform = new Platform(txtPlatform.Text, txtExtension.Text, _emulatorPath, _romsPath, _coversPath);
+                listPlatforms.Add(platform);
+                AddPlatformTab(platform, listPlatforms.Count - 1);
+
+                txtPlatform.Text = "";
+                txtExtension.Text = "";
+
                 SerializeObjects();
             }
         }
+
+        private void btnBrowseEmu_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog fileDialog = new OpenFileDialog();
+            fileDialog.Title = "Select Emulator Executable File";
+            fileDialog.Filter = "Executable Files (*.exe)|*.exe";
+            if (fileDialog.ShowDialog() == true)
+            {
+                _emulatorPath = fileDialog.FileName;
+                lblEmu.Content = $"Path to emulator .exe file: '{_emulatorPath}'";
+            }
+        }
+
+        private void btnBrowseRoms_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Forms.FolderBrowserDialog folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
+            folderBrowserDialog.SelectedPath = Settings.Default.RomsDirectory;
+            if (folderBrowserDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                _romsPath = folderBrowserDialog.SelectedPath;
+                lblRoms.Content = $"Path to roms folder: '{_romsPath}'";
+            }
+        }
+
+        private void btnBrowseCovers_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Forms.FolderBrowserDialog folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
+            folderBrowserDialog.SelectedPath = Settings.Default.CoversDirectory;
+            if (folderBrowserDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                _coversPath = folderBrowserDialog.SelectedPath;
+                lblCovers.Content = $"Path to covers folder: '{_coversPath}'";
+            }
+        }
+
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
@@ -164,29 +210,6 @@ namespace EmuBoot
         {
             System.Windows.Controls.Button button = (System.Windows.Controls.Button)sender;
             button.Background = Brushes.Transparent;
-        }
-
-        private void btnBrowseEmu_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog fileDialog = new OpenFileDialog();
-            fileDialog.Title = "Select an Executable File";
-            fileDialog.Filter = "Executable Files (*.exe)|*.exe";
-            if (fileDialog.ShowDialog() == true)
-            {
-                _emuPath = fileDialog.FileName;
-                lblEmu.Content += $" {_emuPath}";
-            }
-        }
-
-        private void btnBrowseRoms_Click(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Forms.FolderBrowserDialog folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
-            folderBrowserDialog.SelectedPath = "C:\\";
-            if(folderBrowserDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                _romsPath = folderBrowserDialog.SelectedPath;
-                lblRoms.Content += $" {_romsPath}";
-            }
         }
 
         private void ButtonSettings_Click(object sender, RoutedEventArgs e)

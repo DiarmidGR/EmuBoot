@@ -5,9 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EmuBoot"
         mc:Ignorable="d"
-        Title="EditPlatform" Height="450" Width="500" Background="#222E50" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
+        Title="EditPlatform" Height="450" Width="600" Background="#222E50" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
@@ -18,18 +19,25 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        
-        <Label Content="Platform name: " VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10" Grid.Column="0" Grid.Row="0" FontSize="18"/>
-        <TextBox x:Name="txtPlatformName" MinWidth="200" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10" Grid.Column="1" Grid.Row="0"/>
 
-        <Label Content="Path to emulator .exe: " VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10" Grid.Column="0" Grid.Row="1" FontSize="18"/>
-        <Button x:Name="btnBrowseEmu" MinWidth="100" MinHeight="30" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10" Grid.Column="1" Grid.Row="1"  Content="Browse Files"  Click="btnBrowseEmu_Click"/>
-        <Label x:Name="lblEmu" Content="(Current emulator path)" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" FontSize="16"/>
+        <Label Content="Platform name (ex: NDS): " VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10" Grid.Column="0" Grid.Row="0" FontSize="18"/>
+        <TextBox x:Name="TextName" MinWidth="200" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10" Grid.Column="1" Grid.Row="0"/>
 
-        <Label Content="Path to roms: " VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10" Grid.Column="0" Grid.Row="2" FontSize="18"/>
-        <Button x:Name="btnBrowseRoms" MinWidth="100" MinHeight="30" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10" Grid.Column="1" Grid.Row="2"  Content="Browse Files"  Click="btnBrowseRoms_Click"/>
-        <Label x:Name="lblRoms" Content="(Current roms path)" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" FontSize="16"/>
+        <Label Content="Path to emulator .exe: " VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10" Grid.Column="0" Grid.Row="1" FontSize="18"/>
+        <Button x:Name="BrowseEmu" MinWidth="100" MinHeight="30" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10" Grid.Column="1" Grid.Row="1"  Content="Browse Files"  Click="BrowseEmu_Click"/>
+        <Label x:Name="LabelEmu" Content="(Current emulator path)" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" FontSize="16"/>
 
-        <Button x:Name="btnSave" MinWidth="100" MinHeight="30" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Row="4" Grid.ColumnSpan="2" Margin="25" Content="Save Edit" Click="btnSave_Click"/>
+        <Label Content="Path to roms: " VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10" Grid.Column="0" Grid.Row="2" FontSize="18"/>
+        <Button x:Name="BrowseRoms" MinWidth="100" MinHeight="30" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10" Grid.Column="1" Grid.Row="2"  Content="Browse Files"  Click="BrowseRoms_Click"/>
+        <Label x:Name="LabelRoms" Content="(Current roms path)" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" FontSize="16"/>
+
+        <Label Content="Path to covers: " VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10" Grid.Column="0" Grid.Row="3" FontSize="18"/>
+        <Button x:Name="BrowseCovers" MinWidth="100" MinHeight="30" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10" Grid.Column="1" Grid.Row="3"  Content="Browse Files"  Click="BrowseCovers_Click"/>
+        <Label x:Name="LabelCovers" Content="(Current covers path)" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" FontSize="16"/>
+
+        <Label Content="Rom extension (ex: .nds): " VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10" Grid.Column="0" Grid.Row="4" FontSize="18"/>
+        <TextBox x:Name="TextExtension" MinWidth="200" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10" Grid.Column="1" Grid.Row="4"/>
+
+        <Button x:Name="SaveEdit" MinWidth="100" MinHeight="30" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="5" Grid.ColumnSpan="2" Content="Save Edit" Click="SaveEdit_Click"/>
     </Grid>
 </Window>

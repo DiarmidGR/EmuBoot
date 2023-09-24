@@ -3,9 +3,12 @@
   <Profiles />
   <Settings>
     <Setting Name="EmulatorsDirectory" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">C:\Important Files\Emulators</Value>
     </Setting>
     <Setting Name="RomsDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="CoversDirectory" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

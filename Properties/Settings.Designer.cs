@@ -25,7 +25,7 @@ namespace EmuBoot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Important Files\\Emulators")]
         public string EmulatorsDirectory {
             get {
                 return ((string)(this["EmulatorsDirectory"]));
@@ -44,6 +44,18 @@ namespace EmuBoot.Properties {
             }
             set {
                 this["RomsDirectory"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CoversDirectory {
+            get {
+                return ((string)(this["CoversDirectory"]));
+            }
+            set {
+                this["CoversDirectory"] = value;
             }
         }
     }

@@ -26,6 +26,7 @@ namespace EmuBoot
         Dictionary<string, string> _settings = new Dictionary<string, string>();
         string EmuPath;
         string RomsPath;
+        string CoversPath;
 
         public EditSettings(SettingsPropertyCollection properties)
         {
@@ -40,6 +41,9 @@ namespace EmuBoot
 
             RomsPath = Settings.Default.RomsDirectory;
             LabelRoms.Content = Settings.Default["RomsDirectory"];
+
+            CoversPath = Settings.Default.CoversDirectory;
+            LabelCovers.Content = Settings.Default["CoversDirectory"];
         }
 
         private void BrowseFiles(Label label, string setting)
@@ -48,7 +52,7 @@ namespace EmuBoot
             folderBrowserDialog.SelectedPath = EmuPath;
             if (folderBrowserDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                label.Content = $" {folderBrowserDialog.SelectedPath}";
+                label.Content = $"{folderBrowserDialog.SelectedPath}";
                 EmuPath = folderBrowserDialog.SelectedPath;
                 Properties.Settings.Default[setting] = folderBrowserDialog.SelectedPath;
             }
@@ -56,7 +60,7 @@ namespace EmuBoot
 
         private void BrowseEmulators_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is Button button)
+            if(sender is Button button)
             {
                 switch (button.Name)
                 {
@@ -66,6 +70,10 @@ namespace EmuBoot
 
                     case "BrowseRoms":
                         BrowseFiles(LabelRoms, "RomsDirectory");
+                        break;
+
+                    case "BrowseCovers":
+                        BrowseFiles(LabelCovers, "CoversDirectory");
                         break;
                 }
             }
@@ -77,28 +85,47 @@ namespace EmuBoot
             folderBrowserDialog.SelectedPath = RomsPath;
             if (folderBrowserDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                LabelRoms.Content = $" {folderBrowserDialog.SelectedPath}";
+                LabelRoms.Content = $"{folderBrowserDialog.SelectedPath}";
                 RomsPath = folderBrowserDialog.SelectedPath;
                 Properties.Settings.Default["RomsDirectory"] = folderBrowserDialog.SelectedPath;
             }
         }
 
+        private void BrowseCovers_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Forms.FolderBrowserDialog folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
+            folderBrowserDialog.SelectedPath = CoversPath;
+            if (folderBrowserDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                LabelCovers.Content = $"{folderBrowserDialog.SelectedPath}";
+                CoversPath = folderBrowserDialog.SelectedPath;
+                Properties.Settings.Default["CoversDirectory"] = folderBrowserDialog.SelectedPath;
+            }
+        }
+
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
-            if (!Directory.Exists(EmuPath))
+            if(!Directory.Exists(EmuPath))
             {
-                MessageBox.Show($"Invalid emulator directory: {EmuPath}");
+                MessageBox.Show($"Invalid emulator folder: {EmuPath}");
                 return;
             }
             if (!Directory.Exists(RomsPath))
             {
-                MessageBox.Show($"Invalid roms directory: {RomsPath}");
+                MessageBox.Show($"Invalid roms folder: {RomsPath}");
+                return;
+            }
+            if (!Directory.Exists(CoversPath))
+            {
+                MessageBox.Show($"Invalid covers folder: {CoversPath}");
                 return;
             }
             Properties.Settings.Default["RomsDirectory"] = RomsPath;
             Properties.Settings.Default["EmulatorsDirectory"] = EmuPath;
+            Properties.Settings.Default["CoversDirectory"] = CoversPath;
             Properties.Settings.Default.Save();
             this.DialogResult = true;
         }
+
     }
 }
