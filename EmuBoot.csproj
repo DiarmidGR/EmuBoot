@@ -127,7 +127,6 @@
   <ItemGroup>
     <Compile Include="Models\Game.cs" />
     <Compile Include="Models\Platform.cs" />
-    <Compile Include="Models\Platforms.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

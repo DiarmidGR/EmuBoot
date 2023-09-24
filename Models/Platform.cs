@@ -7,6 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
+using EmuBoot;
+using EmuBoot.Properties;
 using Newtonsoft.Json;
 
 namespace GBASelector.Models
@@ -47,7 +50,15 @@ namespace GBASelector.Models
             {
                 VerticalScrollBarVisibility = ScrollBarVisibility.Auto
             };
-            scrollViewer.Content = GenViewGrid();
+            switch (Settings.Default.IsGridView)
+            {
+                case true:
+                    scrollViewer.Content = GenViewGrid();
+                    break;
+                case false:
+                    scrollViewer.Content = GenViewList();
+                    break;
+            }
             platformTab.Content = scrollViewer;
 
             // Add ContextMenu to our tab
@@ -73,6 +84,7 @@ namespace GBASelector.Models
 
             return platformTab;
         }
+
 
         private void EditTab_Click(object sender, RoutedEventArgs e)
         {
@@ -146,6 +158,26 @@ namespace GBASelector.Models
                     
                     temp++;
                 }
+            }
+            return grid;
+        }
+
+        private Grid GenViewList()
+        {
+            Grid grid = new Grid();
+            for (int i = 0; i < _gamePaths.Count; i++)
+            {
+                RowDefinition rowDefinition = new RowDefinition
+                {
+                    Height = new GridLength(60),
+                };
+                grid.RowDefinitions.Add(rowDefinition);
+                // Create new Game
+                string coverPath = CoverPaths + "\\" + Path.GetFileNameWithoutExtension(_gamePaths[i]) + ".png";
+                Game game = new Game(_gamePaths[i], coverPath);
+
+                grid.Children.Add(game.GameListItem);
+                Grid.SetRow(game.GameListItem, i);
             }
             return grid;
         }

@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\diarm\OneDrive\Desktop\Coding Projects\EmuBoot\EmuBoot\obj\Debug\
+C:\Users\diarm\OneDrive\Desktop\Coding Projects\EmuBoot\EmuBoot\obj\Release\
 EmuBoot
 none
 false
-DEBUG;TRACE
+TRACE
 C:\Users\diarm\OneDrive\Desktop\Coding Projects\EmuBoot\EmuBoot\App.xaml
 31177083357
 
-9-493863004
+101061871984
 28-1180726330
 EditPlatform.xaml;EditSettings.xaml;MainWindow.xaml;
 
-False
+True
 

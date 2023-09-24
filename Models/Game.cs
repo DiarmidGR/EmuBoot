@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
@@ -26,16 +27,61 @@ namespace GBASelector.Models
         public string CoverPath { get; }
         [JsonIgnore]
         public Border GameCard { get; }
+        public Border GameListItem { get; }
 
         public Game(string gamePath, string coverPath)
         {
             GamePath = gamePath;
             Name = Path.GetFileNameWithoutExtension(gamePath);
             CoverPath = coverPath;
-            GameCard = GenGameCard();
+
+            GameCard = GenGameCardGrid();
+            GameListItem = GenGameCardList();
         }
 
-        public Border GenGameCard()
+        public Grid GenGameCardItem()
+        {
+            Grid grid = new Grid();
+            Image image = new Image();
+            image.Source = new BitmapImage(new Uri("Images\\NoCover.png", UriKind.RelativeOrAbsolute));
+            image.Stretch = Stretch.Fill;
+            image.ToolTip = new ToolTip
+            {
+                Content = Name
+            };
+            image.Height = 56;
+            grid.Children.Add(image);
+            Label label = new Label
+            {
+                Content = Name,
+                Margin = new Thickness(10),
+                FontSize = 20,
+                HorizontalAlignment = HorizontalAlignment.Center,
+            };
+            grid.Children.Add(label);
+            return grid;
+        }
+
+        public Border GenGameCardList()
+        {
+            Border border = new Border
+            {
+                Tag = GamePath,
+                BorderBrush = Brushes.Transparent,
+                BorderThickness = new Thickness(2),
+                Margin = new Thickness(2),
+                Child = GenGameCardItem(),
+            };
+
+            // Game Card event handlers
+            border.MouseEnter += Border_MouseEnter;
+            border.MouseLeave += Border_MouseLeave;
+            border.MouseLeftButtonDown += Border_MouseLeftButtonDown;
+
+            return border;
+        }
+
+        public Border GenGameCardGrid()
         {
             Border border = new Border
             {
@@ -74,7 +120,7 @@ namespace GBASelector.Models
             border.BorderBrush = Brushes.Aquamarine;
         }
 
-        private Image GenGameImage()
+        public Image GenGameImage()
         {
             Image image = new Image();
             if (File.Exists(CoverPath))

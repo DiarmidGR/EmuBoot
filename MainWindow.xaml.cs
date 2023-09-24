@@ -107,12 +107,21 @@ namespace EmuBoot
 
         private void ReLoadPlatforms()
         {
+            DeSerializeObjects();
+            if (tC.Items.Count > 1)
+            {
+                for(int i = 0; i < tC.Items.Count - 1; i++)
+                {
+                    tC.Items.RemoveAt(0);
+                }
+            }
             int index = 0;
             foreach(Platform platform in listPlatforms)
             {
                 AddPlatformTab(platform, index);
                 index++;
             }
+            SerializeObjects();
         }
 
         // Loading and unloading Platforms.json data.
@@ -215,6 +224,20 @@ namespace EmuBoot
         private void ButtonSettings_Click(object sender, RoutedEventArgs e)
         {
             OpenSettings();
+        }
+
+        private void ButtonGridView_Click(object sender, RoutedEventArgs e)
+        {
+            Settings.Default.IsGridView = true;
+            Settings.Default.Save();
+            ReLoadPlatforms();
+        }
+
+        private void ButtonListView_Click(object sender, RoutedEventArgs e)
+        {
+            Settings.Default.IsGridView = false;
+            Settings.Default.Save();
+            ReLoadPlatforms();
         }
     }
 }

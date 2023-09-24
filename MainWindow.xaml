@@ -11,6 +11,18 @@
         <WindowChrome GlassFrameThickness="0" CornerRadius="0" CaptionHeight="0"/>
     </WindowChrome.WindowChrome>
     <Window.Resources>
+        
+        <ControlTemplate x:Key="ListViewItem" TargetType="ListView" x:Name="ListViewTemplate">
+            <ListView Name="myListView">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Name" Width="120" DisplayMemberBinding="{Binding Name}" />
+                        <GridViewColumn Header="Age" Width="80" DisplayMemberBinding="{Binding Age}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+        </ControlTemplate>
         <ControlTemplate x:Key="PlatformTabItem" TargetType="TabItem" x:Name="PlatformTabItemTemplate">
             <TabItem Header="Platform">
                 <TabItem.ContextMenu>
@@ -74,6 +86,18 @@
                 </Grid>
             </TabItem>
         </TabControl>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="4">
+            <Button x:Name="ButtonGridView" Click="ButtonGridView_Click">
+                <Button.Content>
+                    <ui:SymbolIcon Symbol="Grid24"/>
+                </Button.Content>
+            </Button>
+            <Button x:Name="ButtonListView" Margin="4 0 0 0" Click="ButtonListView_Click">
+                <Button.Content>
+                    <ui:SymbolIcon Symbol="AppsList20"/>
+                </Button.Content>
+            </Button>
+        </StackPanel>
         <Button x:Name="ButtonSettings" Content="Settings" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="4" Click="ButtonSettings_Click"/>
         <Label Content="© 2023 Diarmid Rendell" FontSize="20" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Row="4" Panel.ZIndex="10" Margin="4"></Label>
     </Grid>

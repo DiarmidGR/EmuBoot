@@ -58,5 +58,17 @@ namespace EmuBoot.Properties {
                 this["CoversDirectory"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool IsGridView {
+            get {
+                return ((bool)(this["IsGridView"]));
+            }
+            set {
+                this["IsGridView"] = value;
+            }
+        }
     }
 }
