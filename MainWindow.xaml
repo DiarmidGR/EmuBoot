@@ -10,40 +10,6 @@
     <WindowChrome.WindowChrome>
         <WindowChrome GlassFrameThickness="0" CornerRadius="0" CaptionHeight="0"/>
     </WindowChrome.WindowChrome>
-    <Window.Resources>
-        
-        <ControlTemplate x:Key="ListViewItem" TargetType="ListView" x:Name="ListViewTemplate">
-            <ListView Name="myListView">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Name" Width="120" DisplayMemberBinding="{Binding Name}" />
-                        <GridViewColumn Header="Age" Width="80" DisplayMemberBinding="{Binding Age}" />
-                    </GridView>
-                </ListView.View>
-            </ListView>
-
-        </ControlTemplate>
-        <ControlTemplate x:Key="PlatformTabItem" TargetType="TabItem" x:Name="PlatformTabItemTemplate">
-            <TabItem Header="Platform">
-                <TabItem.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem Header="Edit"/>
-                        <MenuItem Header="Delete"/>
-                    </ContextMenu>
-                </TabItem.ContextMenu>
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <Grid x:Name="GamesGrid">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="260"/>
-                            <ColumnDefinition Width="260"/>
-                            <ColumnDefinition Width="260"/>
-                            <ColumnDefinition Width="260"/>
-                        </Grid.ColumnDefinitions>
-                    </Grid>
-                </ScrollViewer>
-            </TabItem>
-        </ControlTemplate>
-    </Window.Resources>
     <Grid>
         <Button x:Name="btnClose" Content="X" Width="35" Height="35" HorizontalAlignment="Right"
                 BorderBrush="Transparent" Background="#222E50"
@@ -98,7 +64,10 @@
                 </Button.Content>
             </Button>
         </StackPanel>
-        <Button x:Name="ButtonSettings" Content="Settings" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="4" Click="ButtonSettings_Click"/>
-        <Label Content="© 2023 Diarmid Rendell" FontSize="20" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Row="4" Panel.ZIndex="10" Margin="4"></Label>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="4">
+            <Button x:Name="ButtonSettings" Content="Settings" Click="ButtonSettings_Click" Margin="0 0 4 0"/>
+            <CheckBox x:Name="CheckFullscreen" Content="Fullscreen Emulator" Checked="CheckFullscreen_Checked" Unchecked="CheckFullscreen_Unchecked"></CheckBox>
+        </StackPanel>
+        <Label Content="© 2023 Diarmid Rendell" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Row="4" Panel.ZIndex="10" Margin="4"></Label>
     </Grid>
 </Window>

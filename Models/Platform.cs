@@ -150,7 +150,7 @@ namespace GBASelector.Models
 
                     // Create new Game
                     string coverPath = CoverPaths + "\\" + Path.GetFileNameWithoutExtension(_gamePaths[temp]) + ".png";
-                    Game game = new Game(_gamePaths[temp], coverPath);
+                    Game game = new Game(_gamePaths[temp], coverPath, EmuPath);
 
                     grid.Children.Add(game.GameCard);
                     Grid.SetRow(game.GameCard, row);
@@ -174,7 +174,7 @@ namespace GBASelector.Models
                 grid.RowDefinitions.Add(rowDefinition);
                 // Create new Game
                 string coverPath = CoverPaths + "\\" + Path.GetFileNameWithoutExtension(_gamePaths[i]) + ".png";
-                Game game = new Game(_gamePaths[i], coverPath);
+                Game game = new Game(_gamePaths[i], coverPath, EmuPath);
 
                 grid.Children.Add(game.GameListItem);
                 Grid.SetRow(game.GameListItem, i);

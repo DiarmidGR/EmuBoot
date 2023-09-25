@@ -48,6 +48,10 @@ namespace EmuBoot
             lblEmu.Content = $"Path to emulator .exe file: '{Settings.Default.EmulatorsDirectory}'";
             lblRoms.Content = $"Path to roms folder: '{Settings.Default.RomsDirectory}'";
             lblCovers.Content = $"Path to covers folder: '{Settings.Default.CoversDirectory}'";
+            if (Settings.Default.IsFullScreen)
+            {
+                CheckFullscreen.IsChecked = true;
+            }
             DeSerializeObjects();
             ReLoadPlatforms();
         }
@@ -60,10 +64,10 @@ namespace EmuBoot
 
         private void AddPlatformTab(Platform platform, int index)
         {
+            platform.PlatformTab.Width = 100;
             platform.PlatformEdit += Platform_PlatformEdit;
             platform.PlatformDelete += Platform_PlatformDelete;
             tC.Items.Insert(index, platform.PlatformTab);
-            tC.SelectedIndex = index;
         }
 
         private void Platform_PlatformDelete(Platform obj)
@@ -102,18 +106,18 @@ namespace EmuBoot
                 AddPlatformTab(platform, temp);
 
                 SerializeObjects();
+                tC.SelectedIndex = tC.Items.Count - 2;
             }
         }
 
         private void ReLoadPlatforms()
         {
+            int tempIndex = tC.SelectedIndex;
             DeSerializeObjects();
-            if (tC.Items.Count > 1)
+            int tabCount = tC.Items.Count;
+            for(int i = 0; i < tabCount - 1; i++)
             {
-                for(int i = 0; i < tC.Items.Count - 1; i++)
-                {
-                    tC.Items.RemoveAt(0);
-                }
+                tC.Items.RemoveAt(0);
             }
             int index = 0;
             foreach(Platform platform in listPlatforms)
@@ -122,6 +126,7 @@ namespace EmuBoot
                 index++;
             }
             SerializeObjects();
+            tC.SelectedIndex = tempIndex;
         }
 
         // Loading and unloading Platforms.json data.
@@ -230,6 +235,7 @@ namespace EmuBoot
         {
             Settings.Default.IsGridView = true;
             Settings.Default.Save();
+            SerializeObjects();
             ReLoadPlatforms();
         }
 
@@ -237,7 +243,20 @@ namespace EmuBoot
         {
             Settings.Default.IsGridView = false;
             Settings.Default.Save();
+            SerializeObjects();
             ReLoadPlatforms();
+        }
+
+        private void CheckFullscreen_Checked(object sender, RoutedEventArgs e)
+        {
+            Settings.Default.IsFullScreen = true;
+            Settings.Default.Save();
+        }
+
+        private void CheckFullscreen_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Settings.Default.IsFullScreen = false;
+            Settings.Default.Save();
         }
     }
 }

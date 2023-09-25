@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Packaging;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -25,15 +27,17 @@ namespace GBASelector.Models
         public string Name { get; }
         public string GamePath { get; }
         public string CoverPath { get; }
+        public string EmuPath { get; }
         [JsonIgnore]
         public Border GameCard { get; }
         public Border GameListItem { get; }
 
-        public Game(string gamePath, string coverPath)
+        public Game(string gamePath, string coverPath, string emuPath)
         {
             GamePath = gamePath;
             Name = Path.GetFileNameWithoutExtension(gamePath);
             CoverPath = coverPath;
+            EmuPath = emuPath;
 
             GameCard = GenGameCardGrid();
             GameListItem = GenGameCardList();
@@ -102,10 +106,20 @@ namespace GBASelector.Models
 
         private void Border_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (sender is Border border && border.Tag is string gamePath)
+            Console.WriteLine($"EmuPath: {EmuPath}  GamePath {GamePath}");
+            // Combine the emulator path and the command-line arguments
+            string arguments = "";
+            if (Settings.Default.IsFullScreen)
             {
-                Process.Start(gamePath);
+                arguments = $"-f \"{GamePath}\"";
             }
+            else
+            {
+                arguments = $"\"{GamePath}\"";
+            }
+
+            // Start the emulator with the specified arguments
+            Process.Start(EmuPath, arguments);
         }
 
         private void Border_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
